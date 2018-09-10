@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import Comment from './Comment';
 
 export default class CommentList extends Component {
+    static defaultProps = {
+        comments: []
+    }
+
     constructor (props) {
         super(props);
 
@@ -31,7 +35,7 @@ export default class CommentList extends Component {
         }
 
         const {comments} = this.props;
-        if (!comments || !comments) return <p>No comments yet</p>;
+        if (!comments.length) return <p>No comments yet</p>;
         const commentElements = comments.map((comment) => {
             return <li key = {comment.id}><Comment comment = {comment}/></li>
         });
