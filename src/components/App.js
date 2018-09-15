@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ArticleList from './ArticleList';
 import UserForm from './UserForm';
 import Select from 'react-select';
+import DatePicker from './Filters/DatePicker';
 
 class App extends Component {
     static propTypes = {
@@ -21,6 +22,7 @@ class App extends Component {
         return (
             <div>
                 <UserForm />
+                <DatePicker/>
                 <Select options = {options} value = {this.state.selection} onChange = {this.changeSelection} isMulti = {true}/>
                 <ArticleList articles = {this.props.articles} />
             </div>

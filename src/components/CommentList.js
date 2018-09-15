@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Comment from './Comment';
 import toggleOpen from '../decorators/toggleOpen';
+import CommentForm from './CommentForm';
 
 class CommentList extends Component {
     static defaultProps = {
@@ -20,7 +21,7 @@ class CommentList extends Component {
 
     getComments = () => {
         const {isOpen} = this.props;
-
+        
         if (!isOpen) {
             return null;
         }
@@ -31,7 +32,12 @@ class CommentList extends Component {
             return <li key = {comment.id}><Comment comment = {comment}/></li>
         });
 
-        return commentElements;
+        return (
+            <div>
+                {commentElements}
+                <CommentForm/>
+            </div>
+        );
     }
 }
 
