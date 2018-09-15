@@ -9,7 +9,9 @@ class Article extends Component {
             id: PropTypes.string.isRequired,
             title: PropTypes.string.isRequired,
             text: PropTypes.string
-        }).isRequired
+        }).isRequired,
+        isOpen: PropTypes.bool, //параметр открыта/закрыта статья
+        toggleOpen: PropTypes.func //функция декоратора Accordion открытие/закрытие статьи
     }
 
     render () {
@@ -37,4 +39,4 @@ class Article extends Component {
     }
 }
 
-export default toggleOpen(Article);
+export default Article;
