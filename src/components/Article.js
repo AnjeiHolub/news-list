@@ -14,6 +14,13 @@ class Article extends Component {
         toggleOpen: PropTypes.func //функция декоратора Accordion открытие/закрытие статьи
     }
 
+    /*
+    shouldComponentUpdate (nextProps, nextState) {
+        //return true - позволяет обновить элемент, return false - запрещает обновить элемент
+        return nextProps.isOpen !== this.props.isOpen //если isOpen не поменялся, не обновляй элемент
+    }
+    */
+
     render () {
         const {article, isOpen, toggleOpen} = this.props;
 
