@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import CommentList from '../CommentList';
 import {CSSTransition} from 'react-transition-group';
 import './main.css';
+import {connect} from 'react-redux';
+import {articleDelete} from '../../AC';
 
-export default class Article extends Component {
+class Article extends Component {
     static propTypes = {
         article: PropTypes.shape({
             id: PropTypes.string.isRequired,
@@ -31,6 +33,7 @@ export default class Article extends Component {
                 <button onClick = {toggleOpen}>
                     {isOpen ? 'Close' : 'Open'}
                 </button>
+                <button onClick = {this.handleDelete}>Delete me</button>
                 <CSSTransition
                     in = {isOpen}
                     classNames = "article"
@@ -51,4 +54,13 @@ export default class Article extends Component {
                     <CommentList comments = {article.comments} />
                 </div>);
     }
+
+    handleDelete = () => {
+        const {article} = this.props;
+        this.props.articleDelete(article.id);
+    }
 }
+
+const decorator = connect(null, {articleDelete});
+
+export default decorator(Article);
