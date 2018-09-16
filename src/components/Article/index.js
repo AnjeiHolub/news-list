@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import CommentList from './CommentList';
+import CommentList from '../CommentList';
 import {CSSTransition} from 'react-transition-group';
-import './article.css';
+import './main.css';
 
-class Article extends Component {
+export default class Article extends Component {
     static propTypes = {
         article: PropTypes.shape({
             id: PropTypes.string.isRequired,
@@ -52,5 +52,3 @@ class Article extends Component {
                 </div>);
     }
 }
-
-export default Article;

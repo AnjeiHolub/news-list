@@ -3,7 +3,8 @@ import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import './datePicker.css';
 
-export default class DatePicker extends Component {
+
+export default class DateRange extends Component {
     state = {
         from: undefined,
         to: undefined
