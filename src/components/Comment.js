@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {commentSelectorFactory} from '../selectors';
 
 function Comment ({comment}) {
     
@@ -21,12 +22,15 @@ Comment.propTypes = {
     }).isRequired
 }
 
-const decorator = connect((state, ownProps) => { //state - это стейт стора (стейт всего приложения)
-    return {
-        comment: state.comments.find((comment) => {
-            return comment.id === ownProps.id;
-        })
+const mapStateToProps = () => {
+    const commentSelector = commentSelectorFactory();
+    return (state, ownProps) => { //state - это стейт стора (стейт всего приложения)
+        return {                  //ownProps - наши реальные props
+            comment: commentSelector(state, ownProps)
+        }
     }
-});
+};
+
+const decorator = connect(mapStateToProps);
 
 export default decorator(Comment);
