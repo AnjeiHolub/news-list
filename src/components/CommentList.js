@@ -28,8 +28,8 @@ class CommentList extends Component {
 
         const {comments} = this.props;
         if (!comments.length) return <p>No comments yet</p>;
-        const commentElements = comments.map((comment) => {
-            return <li key = {comment.id}><Comment comment = {comment}/></li>
+        const commentElements = comments.map((id) => {
+            return <li key = {id}><Comment id = {id}/></li>
         });
 
         return (

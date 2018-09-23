@@ -6,11 +6,10 @@ import SelectFilter from './Select';
 export default class Filters extends Component {
 
     render () {
-        const {articles} = this.props;
 
         return (
             <div>
-                <SelectFilter articles = {articles} />
+                <SelectFilter />
                 <DateRange/>
             </div>
         );

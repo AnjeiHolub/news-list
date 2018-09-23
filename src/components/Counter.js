@@ -27,7 +27,6 @@ class Counter extends Component {
 }
 
 
-
 const decorator = connect((state) => ({
     counter: state.count
 }), {increment});

@@ -1,26 +1,32 @@
 import React, {Component} from 'react';
 import Select from 'react-select';
+import {connect} from 'react-redux';
+import {changeSelection} from '../../AC';
 
-
-export default class SelectFilter extends Component {
-    state = {
-        selection: null
-    }
-
+class SelectFilter extends Component {
     render () {
-        const options = this.props.articles.map((article) => ({
+
+        const {articles, selected} = this.props;
+        const options = articles.map((article) => ({
             label: article.title,
             value: article.id
         }));
 
         return (
             <div>
-                <Select options = {options} value = {this.state.selection} onChange = {this.changeSelection} isMulti = {true}/>
+                <Select options = {options} value = {selected} onChange = {this.changeSelection} isMulti = {true}/>
             </div>
         );
     }
 
-    changeSelection = (selection) => {
-        this.setState({selection});
+    changeSelection = (selected) => {
+        this.props.changeSelection(selected);
     }
 }
+
+const decorator = connect((state) => ({
+    articles: state.articles,
+    selected: state.filters.selected
+}), {changeSelection});
+
+export default decorator(SelectFilter);

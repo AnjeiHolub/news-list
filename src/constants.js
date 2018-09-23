@@ -1,3 +1,7 @@
 export const INCREMENT = 'INCREMENT';
 
 export const ARTICLE_DELETE = 'ARTICLE_DELETE';
+
+export const CHANGE_DATE_RANGE = 'CHANGE_DATE_RANGE';
+
+export const CHANGE_SELECTION = 'CHANGE_SELECTION';

@@ -1,6 +1,6 @@
-//reducer управляющий бизнес логикой счетчика
+//reducer управляющий бизнес логикой статей
 import {ARTICLE_DELETE} from '../constants';
-import {articles as defaultArticles} from '../fixtures';
+import {normalizedArticles as defaultArticles} from '../fixtures';
 
 export default (articlesState = defaultArticles, action) => {
     const {type, payload} = action;
