@@ -51,7 +51,7 @@ class Article extends Component {
         const {article} = this.props;
         return (<div>
                     <section>{article.text}</section>
-                    <CommentList comments = {article.comments} />
+                    <CommentList article = {article} />
                 </div>);
     }
 

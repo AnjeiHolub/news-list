@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import './commentForm.css';
+import {connect} from 'react-redux';
+import {addComment} from '../../AC';
 
 class CommentForm extends Component {
+
     state = {
         user: '',
         text: ''
@@ -11,7 +14,7 @@ class CommentForm extends Component {
         return (
             <form onSubmit = {this.handleSubmit}>
                 Name: <input type = "text" 
-                             value = {this.state.username} 
+                             value = {this.state.user} 
                              onChange = {this.handleChange('user')}
                              className = {this.getClassName('user')}
                         />
@@ -20,17 +23,26 @@ class CommentForm extends Component {
                              onChange = {this.handleChange('text')}
                              className = {this.getClassName('text')}
                         />
-                <input type = 'submit' value = 'submit'/>
+                <input onClick = {this.handleSubmit} type = 'button' value = 'Добавь комментарий'/>
             </form>
         )
     }
 
     handleSubmit = (event) => {
         event.preventDefault;
+        const {user, text} = this.state;
+        const {articleId} = this.props;
+
+        this.props.addComment({
+            user: user,
+            text: text,
+            articleId: articleId
+        });
+
         this.setState({
             user: '',
             text: ''
-        })
+        });
     }
 
     getClassName = (type) => {
@@ -60,4 +72,6 @@ const limits = {
     }
 }
 
-export default CommentForm;
+const decorator = connect(null, {addComment: addComment});
+
+export default decorator(CommentForm);

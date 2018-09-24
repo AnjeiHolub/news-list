@@ -2,15 +2,18 @@ import React, {Component} from 'react';
 import Select from 'react-select';
 import {connect} from 'react-redux';
 import {changeSelection} from '../../AC';
+import {mapToArray} from '../../helpers';
 
 class SelectFilter extends Component {
     render () {
 
         const {articles, selected} = this.props;
-        const options = articles.map((article) => ({
-            label: article.title,
-            value: article.id
-        }));
+        const options = articles.map((article) => {
+            return {
+                label: article.title,
+                value: article.id
+            };
+        });
 
         return (
             <div>
@@ -25,7 +28,7 @@ class SelectFilter extends Component {
 }
 
 const decorator = connect((state) => ({
-    articles: state.articles,
+    articles: mapToArray(state.articles),
     selected: state.filters.selected
 }), {changeSelection});
 

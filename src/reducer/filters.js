@@ -16,7 +16,7 @@ export default (filters = defaultFilters, action) => {
 
     switch (type) {
         case ARTICLE_DELETE:
-            return {...filters, selected: selected.filter((selectedArticle) => {selectedArticle.id !== payload.id})};
+            return {...filters, selected: filters.selected.filter((selectedArticle) => {selectedArticle.id !== payload.id})};
         case CHANGE_DATE_RANGE: 
             return {...filters, dateRange: payload.dateRange};
         case CHANGE_SELECTION:

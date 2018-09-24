@@ -26,7 +26,8 @@ class CommentList extends Component {
             return null;
         }
 
-        const {comments} = this.props;
+        const {article} = this.props;
+        const {comments, id} = article
         if (!comments.length) return <p>No comments yet</p>;
         const commentElements = comments.map((id) => {
             return <li key = {id}><Comment id = {id}/></li>
@@ -35,7 +36,7 @@ class CommentList extends Component {
         return (
             <div>
                 {commentElements}
-                <CommentForm/>
+                <CommentForm articleId = {id}/>
             </div>
         );
     }

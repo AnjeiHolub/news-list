@@ -1,16 +1,15 @@
 //reducer управляющий бизнес логикой комментариев
 import {} from '../constants';
 import {normalizedComments as defaultComments} from '../fixtures';
+import {ADD_COMMENT} from '../constants';
+import {arrayToMap} from '../helpers';
 
-const commentsMap = defaultComments.reduce((acc, comment) => {
-    acc[comment.id] = comment;
-    return acc;
-}, {});
-
-export default (commentsState = commentsMap, action) => {
-    const {type, payload} = action;
+export default (commentsState = arrayToMap(defaultComments), action) => {
+    const {type, payload, randomId} = action;
 
     switch (type) {
+        case ADD_COMMENT: 
+            return {...commentsState, [randomId]: payload.comment}
     }
 
     return commentsState;
