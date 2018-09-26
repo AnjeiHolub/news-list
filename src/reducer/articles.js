@@ -1,11 +1,12 @@
 //reducer управляющий бизнес логикой статей
 import {ARTICLE_DELETE} from '../constants';
 import {ADD_COMMENT} from '../constants';
+import {LOAD_ALL_ARTICLES} from '../constants';
 import {normalizedArticles as defaultArticles} from '../fixtures';
 import {arrayToMap} from '../helpers';
 
-export default (articlesState = arrayToMap(defaultArticles), action) => {
-    const {type, payload, randomId} = action;
+export default (articlesState = {}, action) => {
+    const {type, payload, response, randomId} = action;
 
     switch (type) {
         case ARTICLE_DELETE: 
@@ -21,6 +22,8 @@ export default (articlesState = arrayToMap(defaultArticles), action) => {
                     comments: (article.comments || []).concat(randomId)
                 }
             }
+        case LOAD_ALL_ARTICLES:
+            return arrayToMap(response);
     }
 
     return articlesState;
