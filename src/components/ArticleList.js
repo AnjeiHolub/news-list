@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {filtratedArticlesSelector} from '../selectors';
 import {loadAllArticles} from '../AC';
+import Loader from './Loader';
 
 class ArticleList extends Component {
     static propTypes = {
@@ -16,12 +17,17 @@ class ArticleList extends Component {
     }
 
     componentDidMount () {
-        this.props.loadAllArticles();
+        const {loaded, loading, loadAllArticles} = this.props;
+        if (!loaded || !loading) {
+            loadAllArticles();
+        }
     }
 
     render () {
-        const {articles, toggleOpenItem, openItemId} = this.props;
-
+        const {articles, toggleOpenItem, openItemId, loading} = this.props;
+        if (loading) {
+            return <Loader/>;
+        }
         const articleElements = articles.map((article) => {
             return <li key = {article.id}>
                         <Article 
@@ -42,7 +48,9 @@ class ArticleList extends Component {
 
 const decorator = connect((state) => {
     return {
-        articles: filtratedArticlesSelector(state)
+        articles: filtratedArticlesSelector(state),
+        loading: state.articles.loading,
+        loaded: state.articles.loaded
     };
 }, {loadAllArticles: loadAllArticles});
 

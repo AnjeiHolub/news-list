@@ -28,7 +28,7 @@ class SelectFilter extends Component {
 }
 
 const decorator = connect((state) => ({
-    articles: mapToArray(state.articles),
+    articles: mapToArray(state.articles.entities),
     selected: state.filters.selected
 }), {changeSelection});
 

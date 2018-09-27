@@ -7,7 +7,7 @@ const filtersGetter = (state) => {
 };
 
 const articlesGetter = (state) => {
-    return state.articles;
+    return state.articles.entities;
 };
 
 const commentsGetter = (state) => {
