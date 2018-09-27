@@ -1,12 +1,11 @@
-export function arrayToMap (array) {
+import {Map} from 'immutable';
+
+export function arrayToMap (array, ModelRecord = Map) {
     return array.reduce((previousValue, item) => {
-        previousValue[item.id] = item;
-        return previousValue;
-    }, {});
+        return previousValue.set(item.id, new ModelRecord(item)); //элементы item - заворачиваем в Map (иммутабельный объект от immutable) 
+    }, new Map({}));  //заворачиваем в Map (иммутабельный объект от immutable) 
 }
 
-export function mapToArray (object) {
-    return Object.keys(object).map((id) => {
-        return object[id];
-    });
+export function mapToArray (immutableMap) {
+    return immutableMap.valueSeq().toArray();
 }
