@@ -4,7 +4,8 @@ import CommentList from '../CommentList';
 import {CSSTransition} from 'react-transition-group';
 import './main.css';
 import {connect} from 'react-redux';
-import {articleDelete} from '../../AC';
+import {articleDelete, loadArticle} from '../../AC';
+import Loader from '../Loader';
 
 class Article extends Component {
     static propTypes = {
@@ -15,6 +16,12 @@ class Article extends Component {
         }).isRequired,
         isOpen: PropTypes.bool, //параметр открыта/закрыта статья
         toggleOpen: PropTypes.func //функция декоратора Accordion открытие/закрытие статьи
+    }
+
+    componentWillReceiveProps({isOpen, loadArticle, article}) {
+        if (isOpen && !article.text && !article.loading) {
+            return loadArticle(article.id);
+        }
     }
 
     /*
@@ -46,9 +53,11 @@ class Article extends Component {
     }
 
     getBody = () => {
-        const {isOpen} = this.props;
+        const {isOpen, article} = this.props;
         if (!isOpen) return (<div></div>);
-        const {article} = this.props;
+        if (article.loading) {
+            return <Loader/>;
+        }
         return (<div>
                     <section>{article.text}</section>
                     <CommentList article = {article} />
@@ -61,6 +70,6 @@ class Article extends Component {
     }
 }
 
-const decorator = connect(null, {articleDelete});
+const decorator = connect(null, {articleDelete, loadArticle});
 
 export default decorator(Article);
