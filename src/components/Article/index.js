@@ -9,18 +9,21 @@ import Loader from '../Loader';
 
 class Article extends Component {
     static propTypes = {
-        article: PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            title: PropTypes.string.isRequired,
-            text: PropTypes.string
-        }).isRequired,
+        id: PropTypes.string.isRequired,
         isOpen: PropTypes.bool, //параметр открыта/закрыта статья
-        toggleOpen: PropTypes.func //функция декоратора Accordion открытие/закрытие статьи
+        toggleOpen: PropTypes.func, //функция декоратора Accordion открытие/закрытие статьи
+        //from connect
+        article: PropTypes.shape({
+            id: PropTypes.string,
+            title: PropTypes.string,
+            text: PropTypes.string
+        })
     }
 
-    componentWillReceiveProps({isOpen, loadArticle, article}) {
-        if (isOpen && !article.text && !article.loading) {
-            return loadArticle(article.id);
+    componentDidMount() {
+        const {loadArticle, article, id} = this.props;
+        if (!article || (!article.text && !article.loading)) {
+            return loadArticle(id);
         }
     }
 
@@ -33,7 +36,9 @@ class Article extends Component {
 
     render () {
         const {article, isOpen, toggleOpen} = this.props;
-
+        if (!article) {
+            return null;
+        }
         return (
             <div>
                 <h3>{article.title}</h3>
@@ -70,6 +75,10 @@ class Article extends Component {
     }
 }
 
-const decorator = connect(null, {articleDelete, loadArticle});
+const decorator = connect((state, ownProps) => {
+    return {
+        article: state.articles.entities.get(ownProps.id)
+    };
+}, {articleDelete: articleDelete, loadArticle: loadArticle});
 
 export default decorator(Article);
