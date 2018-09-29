@@ -1,7 +1,7 @@
 //reducer управляющий бизнес логикой статей
 import {ARTICLE_DELETE} from '../constants';
 import {ADD_COMMENT} from '../constants';
-import {LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS} from '../constants';
+import {LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS, LOAD_COMMENTS_ARTICLE} from '../constants';
 import {normalizedArticles as defaultArticles} from '../fixtures';
 import {arrayToMap} from '../helpers';
 import {Record, OrderedMap} from 'immutable';
@@ -11,6 +11,8 @@ const ArticleRecord = Record({
     title: '',
     id: undefined,
     loading: false,
+    commentsLoading: false,
+    commentsLoaded: false,
     comments: []
 });
 
@@ -48,6 +50,12 @@ export default (articlesState = defaultState, action) => {
             return articlesState.setIn(['entities', payload.id, 'loading'], true);
         case LOAD_ARTICLE + SUCCESS:
             return articlesState.setIn(['entities', payload.id], new ArticleRecord(payload.response));
+        case LOAD_COMMENTS_ARTICLE + START:
+            return articlesState.setIn(['entities', payload.id, 'commentsLoading'], true);
+        case LOAD_COMMENTS_ARTICLE + SUCCESS:
+            return articlesState
+                        .setIn(['entities', payload.id, 'commentsLoaded'], true)
+                        .setIn(['entities', payload.id, 'commentsLoading'], false);
     }
 
     return articlesState;

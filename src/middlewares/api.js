@@ -11,7 +11,6 @@ export default (store) => {
             next({
                 ...rest, type: type + START
             })
-
             fetch(callAPI)
                 .then((res) => {
                     return res.json();

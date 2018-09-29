@@ -11,7 +11,7 @@ const articlesGetter = (state) => {
 };
 
 const commentsGetter = (state) => {
-    return state.comments;
+    return state.comments.entities;
 };
 
 const idGetter = (state, props) => {
@@ -45,5 +45,5 @@ export const filtratedArticlesSelector = createSelector(articlesGetter, filtersG
 });
 
 export const commentSelectorFactory = () => createSelector(commentsGetter, idGetter, (comments, id) => {
-    return comments[id];
+    return comments.get(id);
 });

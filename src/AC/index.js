@@ -3,7 +3,7 @@ import {ARTICLE_DELETE} from '../constants';
 import {CHANGE_DATE_RANGE} from '../constants';
 import {CHANGE_SELECTION} from '../constants';
 import {ADD_COMMENT} from '../constants';
-import {LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS, FAIL} from '../constants';
+import {LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS, FAIL, LOAD_COMMENTS_ARTICLE} from '../constants';
 
 export function increment () {
     return {
@@ -62,7 +62,7 @@ export function loadAllArticles () {
     };
 }
 
-export function loadArticle(id) {
+export function loadArticle (id) {
     return (dispatch) => {
         dispatch({
             type: LOAD_ARTICLE + START,
@@ -88,4 +88,14 @@ export function loadArticle(id) {
                 });
         }, 1000)  
     }; 
+}
+
+export function loadCommentsArticle (id) {
+    return {
+        type: LOAD_COMMENTS_ARTICLE,
+        payload: {
+            id: id
+        },
+        callAPI: `/api/comment?article=${id}`
+    };
 }
