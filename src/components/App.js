@@ -5,6 +5,7 @@ import NotFound from './routes/NotFound';
 import UserForm from './UserForm';
 import Filters from './Filters';
 import Counter from './Counter';
+import CommentsPage from './routes/CommentsPage';
 import {BrowserRouter as Router, Switch, Route, NavLink} from 'react-router-dom';
 
 class App extends Component {
@@ -25,11 +26,15 @@ class App extends Component {
                         <div>
                             <NavLink activeStyle = {{color: 'red'}} to = "/articles">Articles</NavLink>
                         </div>
+                        <div>
+                            <NavLink activeStyle = {{color: 'red'}} to = "/comments/1">Comments</NavLink>
+                        </div>
                     </div>
                     <UserForm />
                     <Switch>
                         <Route path = "/counter" component = {Counter} />
                         <Route path = "/filters" component = {Filters} />
+                        <Route path = "/comments/:page" component = {CommentsPage} />
                         <Route path = "/articles/new" component = {NewArticle} />
                         <Route path = "/articles" component = {Articles} />
                         <Route path = "*" component = {NotFound} />

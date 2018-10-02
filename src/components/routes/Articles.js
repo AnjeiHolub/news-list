@@ -10,7 +10,7 @@ class Articles extends Component {
         return (
             <div>
                 <ArticleList />
-                <Route path = "/articles" render = {this.getIndex} exact />      
+                <Route path = "/articles" children = {this.getIndex} exact />      
                 <Route path = "/articles/:id" render = {this.getArticle} />
             </div>
         )
@@ -21,7 +21,8 @@ class Articles extends Component {
         return <Article id = {id} isOpen = {true} key = {id}/>;
     }
 
-    getIndex = () => {
+    getIndex = ({match}) => {
+        if (!match) return <h2>Выбранная статья:</h2>;
         return <h2>Выберите себе статью</h2>;
     }
 }

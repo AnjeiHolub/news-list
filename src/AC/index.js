@@ -3,7 +3,7 @@ import {ARTICLE_DELETE} from '../constants';
 import {CHANGE_DATE_RANGE} from '../constants';
 import {CHANGE_SELECTION} from '../constants';
 import {ADD_COMMENT} from '../constants';
-import {LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS, FAIL, LOAD_COMMENTS_ARTICLE} from '../constants';
+import {LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS, FAIL, LOAD_COMMENTS_ARTICLE, LOAD_COMMENTS_FOR_PAGE} from '../constants';
 
 export function increment () {
     return {
@@ -60,6 +60,21 @@ export function loadAllArticles () {
         type: LOAD_ALL_ARTICLES,
         callAPI: '/api/article'
     };
+}
+
+export function checkAndLoadCommentsForPage (page) {
+    return (dispatch, getState) => {
+        const {comments: {pagination}} = getState();
+        if (pagination.getIn([page, 'loading']) || pagination.getIn([page, 'ids'])) {
+            return;
+        }
+
+        dispatch({
+            type: LOAD_COMMENTS_FOR_PAGE,
+            payload: {page},
+            callAPI:`/api/comment?limit=5&offset=${(page - 1) * 5}`
+        });
+    }
 }
 
 export function loadArticle (id) {
